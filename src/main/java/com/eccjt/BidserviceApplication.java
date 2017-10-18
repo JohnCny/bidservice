@@ -6,7 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 //mapper 接口类配置
-@MapperScan("com.eccjt.bidservice..dao")
+@MapperScan("com.eccjt.bidservice.*.dao")
+
 public class BidserviceApplication {
 
 	public static void main(String[] args) {

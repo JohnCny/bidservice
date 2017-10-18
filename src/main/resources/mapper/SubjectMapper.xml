@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
 <mapper namespace="com.eccjt.bidservice.subject.dao.SubjectDao">
     <resultMap id="BaseResultMap" type="com.eccjt.bidservice.subject.model.Subject">
         <result column="id" property="id" />
@@ -27,22 +28,17 @@
         where id = #{id}
     </select>
 
-    <select id="findAllCity" resultMap="BaseResultMap" >
-        select
-        <include refid="Base_Column_List" />
-        from city
-    </select>
 
-    <insert id="saveCity" parameterMap="City" useGeneratedKeys="true" keyProperty="id">
+    <insert id="saveSubject" parameterMap="Subject" useGeneratedKeys="true" keyProperty="id">
         insert into
-        city(id,province_id,city_name,description)
+        subject(id,province_id,city_name,description)
         values
         (#{id},#{provinceId},#{cityName},#{description})
     </insert>
 
-    <update id="updateCity" parameterMap="City">
+    <update id="updateSubject" parameterMap="Subject">
         update
-        city
+        subject
         set
         <if test="provinceId!=null">
             province_id = #{provinceId},
@@ -57,9 +53,9 @@
         id = #{id}
     </update>
 
-    <delete id="deleteCity" parameterType="java.lang.Long">
+    <delete id="deleteSubject" parameterType="java.lang.Long">
         delete from
-        city
+        subject
         where
         id = #{id}
     </delete>

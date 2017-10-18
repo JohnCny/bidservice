@@ -24,7 +24,7 @@ public class Subject implements Serializable{
     /**
      * 截止时间
      */
-    private String deadLine;
+    private String deadline;
     /**
      * 成交方式
      */
@@ -78,12 +78,12 @@ public class Subject implements Serializable{
         this.bidLadder = bidLadder;
     }
 
-    public String getDeadLine() {
-        return deadLine;
+    public String getDeadline() {
+        return deadline;
     }
 
-    public void setDeadLine(String deadLine) {
-        this.deadLine = deadLine;
+    public void setDeadline(String deadline) {
+        this.deadline = deadline;
     }
 
     public Integer getDealType() {

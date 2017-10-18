@@ -9,12 +9,6 @@ import java.util.List;
  * Created by johhny on 17/10/18.
  */
 public interface SubjectDao {
-    /**
-     * 查找机构下所有标的
-     * @param orgId
-     * @return
-     */
-    List<Subject> findByOrg(Long orgId);
 
     /**
      * 查找单个标的
