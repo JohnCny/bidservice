@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eccjt.bidservice.subject.dao.SubjectDao">
+    <resultMap id="BaseResultMap" type="com.eccjt.bidservice.subject.model.Subject">
+        <result column="id" property="id" />
+        <result column="rule" property="rule" />
+        <result column="bid_type" property="bidType" />
+        <result column="bid_ladder" property="bidLadder" />
+        <result column="deadline" property="deadline" />
+        <result column="deal_type" property="dealType" />
+        <result column="bid_interval" property="bidInterval" />
+        <result column="reserver_price" property="reserverPrice" />
+        <result column="start_price" property="startPrice" />
+        <result column="start_time" property="startTime" />
+    </resultMap>
+
+    <parameterMap id="Subject" type="com.eccjt.bidservice.subject.model.Subject"/>
+
+    <sql id="Base_Column_List">
+        id, bid_ladder, deadline, bid_interval,reserver_price,start_price,start_time
+    </sql>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List" />
+        from subject
+        where id = #{id}
+    </select>
+
+    <select id="findAllCity" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from city
+    </select>
+
+    <insert id="saveCity" parameterMap="City" useGeneratedKeys="true" keyProperty="id">
+        insert into
+        city(id,province_id,city_name,description)
+        values
+        (#{id},#{provinceId},#{cityName},#{description})
+    </insert>
+
+    <update id="updateCity" parameterMap="City">
+        update
+        city
+        set
+        <if test="provinceId!=null">
+            province_id = #{provinceId},
+        </if>
+        <if test="cityName!=null">
+            city_name = #{cityName},
+        </if>
+        <if test="description!=null">
+            description = #{description}
+        </if>
+        where
+        id = #{id}
+    </update>
+
+    <delete id="deleteCity" parameterType="java.lang.Long">
+        delete from
+        city
+        where
+        id = #{id}
+    </delete>
+
+</mapper>

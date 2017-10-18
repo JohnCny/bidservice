@@ -22,7 +22,7 @@ public class SubjectServiceImpl implements SubjectService{
 
     private static final Logger LOGGER= LoggerFactory.getLogger(SubjectServiceImpl.class);
 
-    @Autowired
+    @Autowired(required = false)
     private SubjectDao subjectDao;
 
     @Autowired
