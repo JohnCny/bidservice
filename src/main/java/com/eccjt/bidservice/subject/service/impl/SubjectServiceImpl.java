@@ -1,7 +1,7 @@
 package com.eccjt.bidservice.subject.service.impl;
 
 import com.eccjt.bidservice.bid.model.Bid;
-import com.eccjt.bidservice.subject.dao.SubjectDao;
+import com.eccjt.bidservice.subject.dao.SubjectMapper;
 import com.eccjt.bidservice.subject.model.Subject;
 import com.eccjt.bidservice.subject.service.SubjectService;
 import com.eccjt.bidservice.subjectrule.model.SubjectRule;
@@ -23,13 +23,13 @@ public class SubjectServiceImpl implements SubjectService{
     private static final Logger LOGGER= LoggerFactory.getLogger(SubjectServiceImpl.class);
 
     @Autowired
-    private SubjectDao subjectDao;
+    private SubjectMapper subjectMapper;
 
     @Autowired
     private RedisTemplate redisTemplate;
 
     @Override
-    public Subject findSubjectById(Long id) {
+    public Subject findSubjectById(Integer id) {
         //从缓存中读取标的信息
         String key="subject_"+id;
         ValueOperations<String,Subject> operations= redisTemplate.opsForValue();
@@ -41,20 +41,21 @@ public class SubjectServiceImpl implements SubjectService{
             return subject;
         }
 
-        Subject subject=subjectDao.findById(id);
+        Subject subject=subjectMapper.selectByPrimaryKey(id);
         //插入缓存
         operations.set(key,subject);
+
         return subject;
     }
 
     @Override
-    public Long saveSubject(Subject subject) {
-        return subjectDao.saveSubject(subject);
+    public Integer saveSubject(Subject subject) {
+        return subjectMapper.insert(subject);
     }
 
     @Override
-    public Long updateSubject(Subject subject) {
-        Long ret=subjectDao.updateSubject(subject);
+    public Integer updateSubject(Subject subject) {
+        Integer ret=subjectMapper.updateByPrimaryKey(subject);
 
         //更新缓存
         String key="subject_"+subject.getId();
@@ -66,8 +67,8 @@ public class SubjectServiceImpl implements SubjectService{
     }
 
     @Override
-    public Long deleteSubject(Long id) {
-        Long ret=subjectDao.deleteSubject(id);
+    public Integer deleteSubject(Integer id) {
+        Integer ret=subjectMapper.deleteByPrimaryKey(id);
 
         //删除缓存
         String key="subject_"+id;
@@ -80,12 +81,12 @@ public class SubjectServiceImpl implements SubjectService{
     }
 
     @Override
-    public Bid getBestBid(Long subjectId) {
+    public Bid getBestBid(Integer subjectId) {
         return null;
     }
 
     @Override
-    public SubjectRule getSubjectRule(Long subjectId) {
+    public SubjectRule getSubjectRule(Integer subjectId) {
         return null;
     }
 }

@@ -16,40 +16,40 @@ public interface SubjectService {
      * @param id
      * @return
      */
-    Subject findSubjectById(Long id);
+    Subject findSubjectById(Integer id);
 
     /**
      * 新增标的信息
      * @param subject
      * @return
      */
-    Long saveSubject(Subject subject);
+    Integer saveSubject(Subject subject);
 
     /**
      * 更新标的信息
      * @param subject
      * @return
      */
-    Long updateSubject(Subject subject);
+    Integer updateSubject(Subject subject);
 
     /**
      * 删除标的
      * @param id
      * @return
      */
-    Long deleteSubject(Long id);
+    Integer deleteSubject(Integer id);
 
     /**
      * 获得标的的最佳竞价
      * @param subjectId
      * @return
      */
-    Bid getBestBid(Long subjectId);
+    Bid getBestBid(Integer subjectId);
 
     /**
      * 获得标的的规则
      * @param subjectId
      * @return
      */
-    SubjectRule getSubjectRule(Long subjectId);
+    SubjectRule getSubjectRule(Integer subjectId);
 }

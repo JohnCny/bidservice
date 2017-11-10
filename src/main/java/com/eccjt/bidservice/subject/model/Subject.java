@@ -1,72 +1,79 @@
 package com.eccjt.bidservice.subject.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import java.io.Serializable;
+import java.util.Date;
 
-/**
- * Created by johhny on 17/10/18.
- */
 public class Subject implements Serializable{
+    private Integer id;
 
-    private Long id;
+    private Integer bidRule;
 
-    /**
-     * 规则编号
-     */
-    private Long rule;
-    /**
-     * 竞价方式
-     */
-    private String bidType;
-    /**
-     * 竞价阶梯
-     */
+    private Integer bidType;
+
     private Integer bidLadder;
-    /**
-     * 截止时间
-     */
-    private String deadline;
-    /**
-     * 成交方式
-     */
-    private Integer dealType;
-    /**
-     * 延时竞价期
-     */
-    private Integer bidInterval;
-    /**
-     * 保留价
-     */
-    private Double reserverPrice;
-    /**
-     * 起始价
-     */
-    private Double startPrice;
-    /**
-     * 开始时间
-     */
-    private String startTime;
 
-    public Long getId() {
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    private Date deadline;
+
+    private String dealType;
+
+    private Integer bidInterval;
+
+    private Double reserverPrice;
+
+    private Double startPrice;
+
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    private Date startTime;
+
+    private String subjectName;
+
+    private Byte subjectStatus;
+
+    private String subjectRemark;
+
+    private Integer projectId;
+
+    private Boolean isStartPrice;
+
+    private Boolean isReserverPriceShown;
+
+    private Byte isBestPriceBid;
+
+    private Boolean isMultiRound;
+
+    private String uuid;
+
+    private Integer biddingOffice;
+
+    private Double earnestMoney;
+
+    private Boolean isPriority;
+
+    private Integer manager;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getRule() {
-        return rule;
+    public Integer getBidRule() {
+        return bidRule;
     }
 
-    public void setRule(Long rule) {
-        this.rule = rule;
+    public void setBidRule(Integer bidRule) {
+        this.bidRule = bidRule;
     }
 
-    public String getBidType() {
+    public Integer getBidType() {
         return bidType;
     }
 
-    public void setBidType(String bidType) {
+    public void setBidType(Integer bidType) {
         this.bidType = bidType;
     }
 
@@ -78,20 +85,20 @@ public class Subject implements Serializable{
         this.bidLadder = bidLadder;
     }
 
-    public String getDeadline() {
+    public Date getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(String deadline) {
+    public void setDeadline(Date deadline) {
         this.deadline = deadline;
     }
 
-    public Integer getDealType() {
+    public String getDealType() {
         return dealType;
     }
 
-    public void setDealType(Integer dealType) {
-        this.dealType = dealType;
+    public void setDealType(String dealType) {
+        this.dealType = dealType == null ? null : dealType.trim();
     }
 
     public Integer getBidInterval() {
@@ -118,11 +125,115 @@ public class Subject implements Serializable{
         this.startPrice = startPrice;
     }
 
-    public String getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
+    }
+
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName == null ? null : subjectName.trim();
+    }
+
+    public Byte getSubjectStatus() {
+        return subjectStatus;
+    }
+
+    public void setSubjectStatus(Byte subjectStatus) {
+        this.subjectStatus = subjectStatus;
+    }
+
+    public String getSubjectRemark() {
+        return subjectRemark;
+    }
+
+    public void setSubjectRemark(String subjectRemark) {
+        this.subjectRemark = subjectRemark == null ? null : subjectRemark.trim();
+    }
+
+    public Integer getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
+    }
+
+    public Boolean getIsStartPrice() {
+        return isStartPrice;
+    }
+
+    public void setIsStartPrice(Boolean isStartPrice) {
+        this.isStartPrice = isStartPrice;
+    }
+
+    public Boolean getIsReserverPriceShown() {
+        return isReserverPriceShown;
+    }
+
+    public void setIsReserverPriceShown(Boolean isReserverPriceShown) {
+        this.isReserverPriceShown = isReserverPriceShown;
+    }
+
+    public Byte getIsBestPriceBid() {
+        return isBestPriceBid;
+    }
+
+    public void setIsBestPriceBid(Byte isBestPriceBid) {
+        this.isBestPriceBid = isBestPriceBid;
+    }
+
+    public Boolean getIsMultiRound() {
+        return isMultiRound;
+    }
+
+    public void setIsMultiRound(Boolean isMultiRound) {
+        this.isMultiRound = isMultiRound;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid == null ? null : uuid.trim();
+    }
+
+    public Integer getBiddingOffice() {
+        return biddingOffice;
+    }
+
+    public void setBiddingOffice(Integer biddingOffice) {
+        this.biddingOffice = biddingOffice;
+    }
+
+    public Double getEarnestMoney() {
+        return earnestMoney;
+    }
+
+    public void setEarnestMoney(Double earnestMoney) {
+        this.earnestMoney = earnestMoney;
+    }
+
+    public Boolean getIsPriority() {
+        return isPriority;
+    }
+
+    public void setIsPriority(Boolean isPriority) {
+        this.isPriority = isPriority;
+    }
+
+    public Integer getManager() {
+        return manager;
+    }
+
+    public void setManager(Integer manager) {
+        this.manager = manager;
     }
 }
