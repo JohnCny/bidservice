@@ -1,63 +1,306 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-
-<mapper namespace="com.eccjt.bidservice.subject.dao.SubjectDao">
-    <resultMap id="BaseResultMap" type="com.eccjt.bidservice.subject.model.Subject">
-        <result column="id" property="id" />
-        <result column="rule" property="rule" />
-        <result column="bid_type" property="bidType" />
-        <result column="bid_ladder" property="bidLadder" />
-        <result column="deadline" property="deadline" />
-        <result column="deal_type" property="dealType" />
-        <result column="bid_interval" property="bidInterval" />
-        <result column="reserver_price" property="reserverPrice" />
-        <result column="start_price" property="startPrice" />
-        <result column="start_time" property="startTime" />
-    </resultMap>
-
-    <parameterMap id="Subject" type="com.eccjt.bidservice.subject.model.Subject"/>
-
-    <sql id="Base_Column_List">
-        id, bid_ladder, deadline, bid_interval,reserver_price,start_price,start_time
-    </sql>
-
-    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Long">
-        select
-        <include refid="Base_Column_List" />
-        from subject
-        where id = #{id}
-    </select>
-
-
-    <insert id="saveSubject" parameterMap="Subject" useGeneratedKeys="true" keyProperty="id">
-        insert into
-        subject(id,province_id,city_name,description)
-        values
-        (#{id},#{provinceId},#{cityName},#{description})
-    </insert>
-
-    <update id="updateSubject" parameterMap="Subject">
-        update
-        subject
-        set
-        <if test="provinceId!=null">
-            province_id = #{provinceId},
-        </if>
-        <if test="cityName!=null">
-            city_name = #{cityName},
-        </if>
-        <if test="description!=null">
-            description = #{description}
-        </if>
-        where
-        id = #{id}
-    </update>
-
-    <delete id="deleteSubject" parameterType="java.lang.Long">
-        delete from
-        subject
-        where
-        id = #{id}
-    </delete>
-
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eccjt.bidservice.subject.dao.SubjectMapper">
+  <resultMap id="BaseResultMap" type="com.eccjt.bidservice.subject.model.Subject">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="bid_rule" jdbcType="INTEGER" property="bidRule" />
+    <result column="bid_type" jdbcType="INTEGER" property="bidType" />
+    <result column="bid_ladder" jdbcType="INTEGER" property="bidLadder" />
+    <result column="deadline" jdbcType="TIMESTAMP" property="deadline" />
+    <result column="deal_type" jdbcType="VARCHAR" property="dealType" />
+    <result column="bid_interval" jdbcType="INTEGER" property="bidInterval" />
+    <result column="reserver_price" jdbcType="DOUBLE" property="reserverPrice" />
+    <result column="start_price" jdbcType="DOUBLE" property="startPrice" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="subject_name" jdbcType="VARCHAR" property="subjectName" />
+    <result column="subject_status" jdbcType="TINYINT" property="subjectStatus" />
+    <result column="subject_remark" jdbcType="VARCHAR" property="subjectRemark" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="is_start_price" jdbcType="BIT" property="isStartPrice" />
+    <result column="is_reserver_price_shown" jdbcType="BIT" property="isReserverPriceShown" />
+    <result column="is_best_price_bid" jdbcType="TINYINT" property="isBestPriceBid" />
+    <result column="is_multi_round" jdbcType="BIT" property="isMultiRound" />
+    <result column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="bidding_office" jdbcType="INTEGER" property="biddingOffice" />
+    <result column="earnest_money" jdbcType="DOUBLE" property="earnestMoney" />
+    <result column="is_priority" jdbcType="BIT" property="isPriority" />
+    <result column="manager" jdbcType="INTEGER" property="manager" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, bid_rule, bid_type, bid_ladder, deadline, deal_type, bid_interval, reserver_price, 
+    start_price, start_time, subject_name, subject_status, subject_remark, project_id, 
+    is_start_price, is_reserver_price_shown, is_best_price_bid, is_multi_round, uuid, 
+    bidding_office, earnest_money, is_priority, manager
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from subject
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from subject
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.eccjt.bidservice.subject.model.Subject">
+    insert into subject (id, bid_rule, bid_type, 
+      bid_ladder, deadline, deal_type, 
+      bid_interval, reserver_price, start_price, 
+      start_time, subject_name, subject_status, 
+      subject_remark, project_id, is_start_price, 
+      is_reserver_price_shown, is_best_price_bid, is_multi_round, 
+      uuid, bidding_office, earnest_money, 
+      is_priority, manager)
+    values (#{id,jdbcType=INTEGER}, #{bidRule,jdbcType=INTEGER}, #{bidType,jdbcType=INTEGER}, 
+      #{bidLadder,jdbcType=INTEGER}, #{deadline,jdbcType=TIMESTAMP}, #{dealType,jdbcType=VARCHAR}, 
+      #{bidInterval,jdbcType=INTEGER}, #{reserverPrice,jdbcType=DOUBLE}, #{startPrice,jdbcType=DOUBLE}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{subjectName,jdbcType=VARCHAR}, #{subjectStatus,jdbcType=TINYINT}, 
+      #{subjectRemark,jdbcType=VARCHAR}, #{projectId,jdbcType=INTEGER}, #{isStartPrice,jdbcType=BIT}, 
+      #{isReserverPriceShown,jdbcType=BIT}, #{isBestPriceBid,jdbcType=TINYINT}, #{isMultiRound,jdbcType=BIT}, 
+      #{uuid,jdbcType=VARCHAR}, #{biddingOffice,jdbcType=INTEGER}, #{earnestMoney,jdbcType=DOUBLE}, 
+      #{isPriority,jdbcType=BIT}, #{manager,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.eccjt.bidservice.subject.model.Subject">
+    insert into subject
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="bidRule != null">
+        bid_rule,
+      </if>
+      <if test="bidType != null">
+        bid_type,
+      </if>
+      <if test="bidLadder != null">
+        bid_ladder,
+      </if>
+      <if test="deadline != null">
+        deadline,
+      </if>
+      <if test="dealType != null">
+        deal_type,
+      </if>
+      <if test="bidInterval != null">
+        bid_interval,
+      </if>
+      <if test="reserverPrice != null">
+        reserver_price,
+      </if>
+      <if test="startPrice != null">
+        start_price,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="subjectName != null">
+        subject_name,
+      </if>
+      <if test="subjectStatus != null">
+        subject_status,
+      </if>
+      <if test="subjectRemark != null">
+        subject_remark,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="isStartPrice != null">
+        is_start_price,
+      </if>
+      <if test="isReserverPriceShown != null">
+        is_reserver_price_shown,
+      </if>
+      <if test="isBestPriceBid != null">
+        is_best_price_bid,
+      </if>
+      <if test="isMultiRound != null">
+        is_multi_round,
+      </if>
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="biddingOffice != null">
+        bidding_office,
+      </if>
+      <if test="earnestMoney != null">
+        earnest_money,
+      </if>
+      <if test="isPriority != null">
+        is_priority,
+      </if>
+      <if test="manager != null">
+        manager,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bidRule != null">
+        #{bidRule,jdbcType=INTEGER},
+      </if>
+      <if test="bidType != null">
+        #{bidType,jdbcType=INTEGER},
+      </if>
+      <if test="bidLadder != null">
+        #{bidLadder,jdbcType=INTEGER},
+      </if>
+      <if test="deadline != null">
+        #{deadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealType != null">
+        #{dealType,jdbcType=VARCHAR},
+      </if>
+      <if test="bidInterval != null">
+        #{bidInterval,jdbcType=INTEGER},
+      </if>
+      <if test="reserverPrice != null">
+        #{reserverPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="startPrice != null">
+        #{startPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="subjectName != null">
+        #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectStatus != null">
+        #{subjectStatus,jdbcType=TINYINT},
+      </if>
+      <if test="subjectRemark != null">
+        #{subjectRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="isStartPrice != null">
+        #{isStartPrice,jdbcType=BIT},
+      </if>
+      <if test="isReserverPriceShown != null">
+        #{isReserverPriceShown,jdbcType=BIT},
+      </if>
+      <if test="isBestPriceBid != null">
+        #{isBestPriceBid,jdbcType=TINYINT},
+      </if>
+      <if test="isMultiRound != null">
+        #{isMultiRound,jdbcType=BIT},
+      </if>
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="biddingOffice != null">
+        #{biddingOffice,jdbcType=INTEGER},
+      </if>
+      <if test="earnestMoney != null">
+        #{earnestMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="isPriority != null">
+        #{isPriority,jdbcType=BIT},
+      </if>
+      <if test="manager != null">
+        #{manager,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eccjt.bidservice.subject.model.Subject">
+    update subject
+    <set>
+      <if test="bidRule != null">
+        bid_rule = #{bidRule,jdbcType=INTEGER},
+      </if>
+      <if test="bidType != null">
+        bid_type = #{bidType,jdbcType=INTEGER},
+      </if>
+      <if test="bidLadder != null">
+        bid_ladder = #{bidLadder,jdbcType=INTEGER},
+      </if>
+      <if test="deadline != null">
+        deadline = #{deadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealType != null">
+        deal_type = #{dealType,jdbcType=VARCHAR},
+      </if>
+      <if test="bidInterval != null">
+        bid_interval = #{bidInterval,jdbcType=INTEGER},
+      </if>
+      <if test="reserverPrice != null">
+        reserver_price = #{reserverPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="startPrice != null">
+        start_price = #{startPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="subjectName != null">
+        subject_name = #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectStatus != null">
+        subject_status = #{subjectStatus,jdbcType=TINYINT},
+      </if>
+      <if test="subjectRemark != null">
+        subject_remark = #{subjectRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="isStartPrice != null">
+        is_start_price = #{isStartPrice,jdbcType=BIT},
+      </if>
+      <if test="isReserverPriceShown != null">
+        is_reserver_price_shown = #{isReserverPriceShown,jdbcType=BIT},
+      </if>
+      <if test="isBestPriceBid != null">
+        is_best_price_bid = #{isBestPriceBid,jdbcType=TINYINT},
+      </if>
+      <if test="isMultiRound != null">
+        is_multi_round = #{isMultiRound,jdbcType=BIT},
+      </if>
+      <if test="uuid != null">
+        uuid = #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="biddingOffice != null">
+        bidding_office = #{biddingOffice,jdbcType=INTEGER},
+      </if>
+      <if test="earnestMoney != null">
+        earnest_money = #{earnestMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="isPriority != null">
+        is_priority = #{isPriority,jdbcType=BIT},
+      </if>
+      <if test="manager != null">
+        manager = #{manager,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.eccjt.bidservice.subject.model.Subject">
+    update subject
+    set bid_rule = #{bidRule,jdbcType=INTEGER},
+      bid_type = #{bidType,jdbcType=INTEGER},
+      bid_ladder = #{bidLadder,jdbcType=INTEGER},
+      deadline = #{deadline,jdbcType=TIMESTAMP},
+      deal_type = #{dealType,jdbcType=VARCHAR},
+      bid_interval = #{bidInterval,jdbcType=INTEGER},
+      reserver_price = #{reserverPrice,jdbcType=DOUBLE},
+      start_price = #{startPrice,jdbcType=DOUBLE},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      subject_name = #{subjectName,jdbcType=VARCHAR},
+      subject_status = #{subjectStatus,jdbcType=TINYINT},
+      subject_remark = #{subjectRemark,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=INTEGER},
+      is_start_price = #{isStartPrice,jdbcType=BIT},
+      is_reserver_price_shown = #{isReserverPriceShown,jdbcType=BIT},
+      is_best_price_bid = #{isBestPriceBid,jdbcType=TINYINT},
+      is_multi_round = #{isMultiRound,jdbcType=BIT},
+      uuid = #{uuid,jdbcType=VARCHAR},
+      bidding_office = #{biddingOffice,jdbcType=INTEGER},
+      earnest_money = #{earnestMoney,jdbcType=DOUBLE},
+      is_priority = #{isPriority,jdbcType=BIT},
+      manager = #{manager,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>
