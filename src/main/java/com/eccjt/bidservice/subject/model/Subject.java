@@ -1,30 +1,52 @@
 package com.eccjt.bidservice.subject.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
+
+
 import java.io.Serializable;
 import java.util.Date;
 
 public class Subject implements Serializable{
-    private Integer id;
 
-    private Integer bidRule;
+    private String id;
 
-    private Integer bidType;
+    private Integer bidInterval;
 
     private Integer bidLadder;
 
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    private String bidType;
+
+    private String bidRoom;
+
+    @JSONField(format="yyyy-MM-dd HH:mm:ss:SSS")
     private Date deadline;
 
     private String dealType;
 
-    private Integer bidInterval;
+    private Byte isBidStart;
 
-    private Double reserverPrice;
+    private Byte isBidBest;
 
-    private Double startPrice;
+    private Byte isRePrShown;
 
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    private Byte isRounds;
+
+    private Byte isPriority;
+
+    private String manager;
+
+    private String project;
+
+    @JSONField(format="yyyy-MM-dd HH:mm:ss:SSS")
+    private Date pauseTime;
+
+    private Long reserverPrice;
+
+    private Long securityDeposit;
+
+    private Long startPrice;
+
+    @JSONField(format="yyyy-MM-dd HH:mm:ss:SSS")
     private Date startTime;
 
     private String subjectName;
@@ -33,48 +55,20 @@ public class Subject implements Serializable{
 
     private String subjectRemark;
 
-    private Integer projectId;
-
-    private Boolean isStartPrice;
-
-    private Boolean isReserverPriceShown;
-
-    private Byte isBestPriceBid;
-
-    private Boolean isMultiRound;
-
-    private String uuid;
-
-    private Integer biddingOffice;
-
-    private Double earnestMoney;
-
-    private Boolean isPriority;
-
-    private Integer manager;
-
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
-    public Integer getBidRule() {
-        return bidRule;
+    public Integer getBidInterval() {
+        return bidInterval;
     }
 
-    public void setBidRule(Integer bidRule) {
-        this.bidRule = bidRule;
-    }
-
-    public Integer getBidType() {
-        return bidType;
-    }
-
-    public void setBidType(Integer bidType) {
-        this.bidType = bidType;
+    public void setBidInterval(Integer bidInterval) {
+        this.bidInterval = bidInterval;
     }
 
     public Integer getBidLadder() {
@@ -83,6 +77,22 @@ public class Subject implements Serializable{
 
     public void setBidLadder(Integer bidLadder) {
         this.bidLadder = bidLadder;
+    }
+
+    public String getBidType() {
+        return bidType;
+    }
+
+    public void setBidType(String bidType) {
+        this.bidType = bidType == null ? null : bidType.trim();
+    }
+
+    public String getBidRoom() {
+        return bidRoom;
+    }
+
+    public void setBidRoom(String bidRoom) {
+        this.bidRoom = bidRoom == null ? null : bidRoom.trim();
     }
 
     public Date getDeadline() {
@@ -101,27 +111,91 @@ public class Subject implements Serializable{
         this.dealType = dealType == null ? null : dealType.trim();
     }
 
-    public Integer getBidInterval() {
-        return bidInterval;
+    public Byte getIsBidStart() {
+        return isBidStart;
     }
 
-    public void setBidInterval(Integer bidInterval) {
-        this.bidInterval = bidInterval;
+    public void setIsBidStart(Byte isBidStart) {
+        this.isBidStart = isBidStart;
     }
 
-    public Double getReserverPrice() {
+    public Byte getIsBidBest() {
+        return isBidBest;
+    }
+
+    public void setIsBidBest(Byte isBidBest) {
+        this.isBidBest = isBidBest;
+    }
+
+    public Byte getIsRePrShown() {
+        return isRePrShown;
+    }
+
+    public void setIsRePrShown(Byte isRePrShown) {
+        this.isRePrShown = isRePrShown;
+    }
+
+    public Byte getIsRounds() {
+        return isRounds;
+    }
+
+    public void setIsRounds(Byte isRounds) {
+        this.isRounds = isRounds;
+    }
+
+    public Byte getIsPriority() {
+        return isPriority;
+    }
+
+    public void setIsPriority(Byte isPriority) {
+        this.isPriority = isPriority;
+    }
+
+    public String getManager() {
+        return manager;
+    }
+
+    public void setManager(String manager) {
+        this.manager = manager == null ? null : manager.trim();
+    }
+
+    public String getProject() {
+        return project;
+    }
+
+    public void setProject(String project) {
+        this.project = project == null ? null : project.trim();
+    }
+
+    public Date getPauseTime() {
+        return pauseTime;
+    }
+
+    public void setPauseTime(Date pauseTime) {
+        this.pauseTime = pauseTime;
+    }
+
+    public Long getReserverPrice() {
         return reserverPrice;
     }
 
-    public void setReserverPrice(Double reserverPrice) {
+    public void setReserverPrice(Long reserverPrice) {
         this.reserverPrice = reserverPrice;
     }
 
-    public Double getStartPrice() {
+    public Long getSecurityDeposit() {
+        return securityDeposit;
+    }
+
+    public void setSecurityDeposit(Long securityDeposit) {
+        this.securityDeposit = securityDeposit;
+    }
+
+    public Long getStartPrice() {
         return startPrice;
     }
 
-    public void setStartPrice(Double startPrice) {
+    public void setStartPrice(Long startPrice) {
         this.startPrice = startPrice;
     }
 
@@ -155,85 +229,5 @@ public class Subject implements Serializable{
 
     public void setSubjectRemark(String subjectRemark) {
         this.subjectRemark = subjectRemark == null ? null : subjectRemark.trim();
-    }
-
-    public Integer getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(Integer projectId) {
-        this.projectId = projectId;
-    }
-
-    public Boolean getIsStartPrice() {
-        return isStartPrice;
-    }
-
-    public void setIsStartPrice(Boolean isStartPrice) {
-        this.isStartPrice = isStartPrice;
-    }
-
-    public Boolean getIsReserverPriceShown() {
-        return isReserverPriceShown;
-    }
-
-    public void setIsReserverPriceShown(Boolean isReserverPriceShown) {
-        this.isReserverPriceShown = isReserverPriceShown;
-    }
-
-    public Byte getIsBestPriceBid() {
-        return isBestPriceBid;
-    }
-
-    public void setIsBestPriceBid(Byte isBestPriceBid) {
-        this.isBestPriceBid = isBestPriceBid;
-    }
-
-    public Boolean getIsMultiRound() {
-        return isMultiRound;
-    }
-
-    public void setIsMultiRound(Boolean isMultiRound) {
-        this.isMultiRound = isMultiRound;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid == null ? null : uuid.trim();
-    }
-
-    public Integer getBiddingOffice() {
-        return biddingOffice;
-    }
-
-    public void setBiddingOffice(Integer biddingOffice) {
-        this.biddingOffice = biddingOffice;
-    }
-
-    public Double getEarnestMoney() {
-        return earnestMoney;
-    }
-
-    public void setEarnestMoney(Double earnestMoney) {
-        this.earnestMoney = earnestMoney;
-    }
-
-    public Boolean getIsPriority() {
-        return isPriority;
-    }
-
-    public void setIsPriority(Boolean isPriority) {
-        this.isPriority = isPriority;
-    }
-
-    public Integer getManager() {
-        return manager;
-    }
-
-    public void setManager(Integer manager) {
-        this.manager = manager;
     }
 }

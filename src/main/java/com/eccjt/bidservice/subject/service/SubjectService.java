@@ -1,8 +1,10 @@
 package com.eccjt.bidservice.subject.service;
 
-import com.eccjt.bidservice.bid.model.Bid;
+
 import com.eccjt.bidservice.subject.model.Subject;
-import com.eccjt.bidservice.subjectrule.model.SubjectRule;
+
+
+import java.util.List;
 
 /**
  * 标的业务逻辑接口类
@@ -16,7 +18,7 @@ public interface SubjectService {
      * @param id
      * @return
      */
-    Subject findSubjectById(Integer id);
+    Subject findSubjectById(String id);
 
     /**
      * 新增标的信息
@@ -37,19 +39,26 @@ public interface SubjectService {
      * @param id
      * @return
      */
-    Integer deleteSubject(Integer id);
+    Integer deleteSubject(String id);
+
+//    /**
+//     * 获得标的的最佳竞价
+//     * @param subjectId
+//     * @return
+//     */
+//    Bid getBestBid(String subjectId);
+
+//    /**
+//     * 获得标的的规则
+//     * @param subjectId
+//     * @return
+//     */
+//    SubjectRule getSubjectRule(String subjectId);
 
     /**
-     * 获得标的的最佳竞价
-     * @param subjectId
+     * 根据状态获得用户已报名的标的
+     * @param status
      * @return
      */
-    Bid getBestBid(Integer subjectId);
-
-    /**
-     * 获得标的的规则
-     * @param subjectId
-     * @return
-     */
-    SubjectRule getSubjectRule(Integer subjectId);
+    List<Subject> getSubjects(Byte status);
 }

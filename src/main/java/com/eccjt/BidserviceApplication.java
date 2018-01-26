@@ -4,16 +4,15 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-
+@ServletComponentScan
 @SpringBootApplication
+
 //mapper 接口类配置
 @MapperScan("com.eccjt.bidservice.*.dao")
-
 public class BidserviceApplication {
 
 	public static void main(String[] args) {

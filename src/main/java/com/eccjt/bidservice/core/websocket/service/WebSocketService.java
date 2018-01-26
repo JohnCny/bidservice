@@ -13,6 +13,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 @ServerEndpoint("/timer")
 @Component
 public class WebSocketService {
+
     //concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象。
     private static CopyOnWriteArraySet<WebSocketService> webSocketSet = new CopyOnWriteArraySet<WebSocketService>();
 

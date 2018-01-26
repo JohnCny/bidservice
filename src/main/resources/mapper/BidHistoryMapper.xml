@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eccjt.bidservice.bidhistory.dao.BidHistoryMapper">
+  <resultMap id="BaseResultMap" type="com.eccjt.bidservice.bidhistory.model.BidHistory">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="bid_user" jdbcType="VARCHAR" property="bidUser" />
+    <result column="bid_time" jdbcType="TIMESTAMP" property="bidTime" />
+    <result column="bid_price" jdbcType="BIGINT" property="bidPrice" />
+    <result column="is_priority_used" jdbcType="TINYINT" property="isPriorityUsed" />
+    <result column="priority_level" jdbcType="TINYINT" property="priorityLevel" />
+    <result column="is_best_price" jdbcType="TINYINT" property="isBestPrice" />
+    <result column="subject" jdbcType="VARCHAR" property="subject" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, bid_user, bid_time, bid_price, is_priority_used, priority_level, is_best_price, 
+    subject, create_time
+  </sql>
+  <select id="selectByExample" parameterType="com.eccjt.bidservice.bidhistory.model.BidHistoryExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bid_history
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bid_history
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from bid_history
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.eccjt.bidservice.bidhistory.model.BidHistoryExample">
+    delete from bid_history
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.eccjt.bidservice.bidhistory.model.BidHistory">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
+      select replace(uuid(),'-','')
+    </selectKey>
+    insert into bid_history (id, bid_user, bid_time, 
+      bid_price, is_priority_used, priority_level, 
+      is_best_price, subject, create_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{bidUser,jdbcType=VARCHAR}, #{bidTime,jdbcType=TIMESTAMP}, 
+      #{bidPrice,jdbcType=BIGINT}, #{isPriorityUsed,jdbcType=TINYINT}, #{priorityLevel,jdbcType=TINYINT}, 
+      #{isBestPrice,jdbcType=TINYINT}, #{subject,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.eccjt.bidservice.bidhistory.model.BidHistory">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
+      select replace(uuid(),'-','')
+    </selectKey>
+    insert into bid_history
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      id,
+      <if test="bidUser != null">
+        bid_user,
+      </if>
+      <if test="bidTime != null">
+        bid_time,
+      </if>
+      <if test="bidPrice != null">
+        bid_price,
+      </if>
+      <if test="isPriorityUsed != null">
+        is_priority_used,
+      </if>
+      <if test="priorityLevel != null">
+        priority_level,
+      </if>
+      <if test="isBestPrice != null">
+        is_best_price,
+      </if>
+      <if test="subject != null">
+        subject,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{id,jdbcType=VARCHAR},
+      <if test="bidUser != null">
+        #{bidUser,jdbcType=VARCHAR},
+      </if>
+      <if test="bidTime != null">
+        #{bidTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bidPrice != null">
+        #{bidPrice,jdbcType=BIGINT},
+      </if>
+      <if test="isPriorityUsed != null">
+        #{isPriorityUsed,jdbcType=TINYINT},
+      </if>
+      <if test="priorityLevel != null">
+        #{priorityLevel,jdbcType=TINYINT},
+      </if>
+      <if test="isBestPrice != null">
+        #{isBestPrice,jdbcType=TINYINT},
+      </if>
+      <if test="subject != null">
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.eccjt.bidservice.bidhistory.model.BidHistoryExample" resultType="java.lang.Long">
+    select count(*) from bid_history
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bid_history
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bidUser != null">
+        bid_user = #{record.bidUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bidTime != null">
+        bid_time = #{record.bidTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.bidPrice != null">
+        bid_price = #{record.bidPrice,jdbcType=BIGINT},
+      </if>
+      <if test="record.isPriorityUsed != null">
+        is_priority_used = #{record.isPriorityUsed,jdbcType=TINYINT},
+      </if>
+      <if test="record.priorityLevel != null">
+        priority_level = #{record.priorityLevel,jdbcType=TINYINT},
+      </if>
+      <if test="record.isBestPrice != null">
+        is_best_price = #{record.isBestPrice,jdbcType=TINYINT},
+      </if>
+      <if test="record.subject != null">
+        subject = #{record.subject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bid_history
+    set id = #{record.id,jdbcType=VARCHAR},
+      bid_user = #{record.bidUser,jdbcType=VARCHAR},
+      bid_time = #{record.bidTime,jdbcType=TIMESTAMP},
+      bid_price = #{record.bidPrice,jdbcType=BIGINT},
+      is_priority_used = #{record.isPriorityUsed,jdbcType=TINYINT},
+      priority_level = #{record.priorityLevel,jdbcType=TINYINT},
+      is_best_price = #{record.isBestPrice,jdbcType=TINYINT},
+      subject = #{record.subject,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eccjt.bidservice.bidhistory.model.BidHistory">
+    update bid_history
+    <set>
+      <if test="bidUser != null">
+        bid_user = #{bidUser,jdbcType=VARCHAR},
+      </if>
+      <if test="bidTime != null">
+        bid_time = #{bidTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bidPrice != null">
+        bid_price = #{bidPrice,jdbcType=BIGINT},
+      </if>
+      <if test="isPriorityUsed != null">
+        is_priority_used = #{isPriorityUsed,jdbcType=TINYINT},
+      </if>
+      <if test="priorityLevel != null">
+        priority_level = #{priorityLevel,jdbcType=TINYINT},
+      </if>
+      <if test="isBestPrice != null">
+        is_best_price = #{isBestPrice,jdbcType=TINYINT},
+      </if>
+      <if test="subject != null">
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.eccjt.bidservice.bidhistory.model.BidHistory">
+    update bid_history
+    set bid_user = #{bidUser,jdbcType=VARCHAR},
+      bid_time = #{bidTime,jdbcType=TIMESTAMP},
+      bid_price = #{bidPrice,jdbcType=BIGINT},
+      is_priority_used = #{isPriorityUsed,jdbcType=TINYINT},
+      priority_level = #{priorityLevel,jdbcType=TINYINT},
+      is_best_price = #{isBestPrice,jdbcType=TINYINT},
+      subject = #{subject,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

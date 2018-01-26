@@ -1,15 +1,28 @@
 package com.eccjt.bidservice.subject.dao;
 
 import com.eccjt.bidservice.subject.model.Subject;
+import com.eccjt.bidservice.subject.model.SubjectExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface SubjectMapper {
-    int deleteByPrimaryKey(Integer id);
+    long countByExample(SubjectExample example);
+
+    int deleteByExample(SubjectExample example);
+
+    int deleteByPrimaryKey(String id);
 
     int insert(Subject record);
 
     int insertSelective(Subject record);
 
-    Subject selectByPrimaryKey(Integer id);
+    List<Subject> selectByExample(SubjectExample example);
+
+    Subject selectByPrimaryKey(String id);
+
+    int updateByExampleSelective(@Param("record") Subject record, @Param("example") SubjectExample example);
+
+    int updateByExample(@Param("record") Subject record, @Param("example") SubjectExample example);
 
     int updateByPrimaryKeySelective(Subject record);
 

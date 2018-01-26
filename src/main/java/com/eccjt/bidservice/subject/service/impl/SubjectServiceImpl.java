@@ -1,16 +1,21 @@
 package com.eccjt.bidservice.subject.service.impl;
 
-import com.eccjt.bidservice.bid.model.Bid;
+
+import com.eccjt.bidservice.bidapply.model.BidApply;
+import com.eccjt.bidservice.bidapply.service.BidApplyService;
 import com.eccjt.bidservice.subject.dao.SubjectMapper;
 import com.eccjt.bidservice.subject.model.Subject;
+import com.eccjt.bidservice.subject.model.SubjectExample;
 import com.eccjt.bidservice.subject.service.SubjectService;
-import com.eccjt.bidservice.subjectrule.model.SubjectRule;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 标的业务实现类
@@ -20,16 +25,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class SubjectServiceImpl implements SubjectService{
 
-    private static final Logger LOGGER= LoggerFactory.getLogger(SubjectServiceImpl.class);
-
     @Autowired
     private SubjectMapper subjectMapper;
+
+    @Autowired
+    private BidApplyService bidApplyService;
 
     @Autowired
     private RedisTemplate redisTemplate;
 
     @Override
-    public Subject findSubjectById(Integer id) {
+    public Subject findSubjectById(String id) {
         //从缓存中读取标的信息
         String key="subject_"+id;
         ValueOperations<String,Subject> operations= redisTemplate.opsForValue();
@@ -67,7 +73,7 @@ public class SubjectServiceImpl implements SubjectService{
     }
 
     @Override
-    public Integer deleteSubject(Integer id) {
+    public Integer deleteSubject(String id) {
         Integer ret=subjectMapper.deleteByPrimaryKey(id);
 
         //删除缓存
@@ -80,13 +86,24 @@ public class SubjectServiceImpl implements SubjectService{
         return ret;
     }
 
-    @Override
-    public Bid getBestBid(Integer subjectId) {
-        return null;
-    }
 
     @Override
-    public SubjectRule getSubjectRule(Integer subjectId) {
-        return null;
+    public List<Subject> getSubjects(Byte status) {
+        //todo:获得用户ID
+        String userId="test";
+
+        //获得客户所有已报名的标的
+        List<BidApply> appliedSubject=bidApplyService.getAppliedSubject(userId);
+        List<String> ids=null;
+
+        //提取id组成查询条件列表
+        for(BidApply bidApply :appliedSubject){
+            ids.add(bidApply.getId());
+        }
+
+        SubjectExample subjectExample=new SubjectExample();
+        subjectExample.createCriteria().andIdIn(ids).andSubjectStatusEqualTo(status);
+
+        return subjectMapper.selectByExample(subjectExample);
     }
 }
