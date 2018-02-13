@@ -257,4 +257,23 @@
       status = #{status,jdbcType=TINYINT}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <insert id="addLationRoles" parameterType="map">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
+      select replace(uuid(),'-','')
+    </selectKey>
+    <foreach collection="roleIds" item="roleId">
+      insert into sys_user_role (id, user, role) VALUES (#{id,jdbcType=VARCHAR},#{user,jdbcType=VARCHAR},#{roleId,jdbcType=VARCHAR})
+    </foreach>
+
+  </insert>
+  <delete id="deleteLationRoles" parameterType="map">
+    <foreach collection="roleIds" item="roleId">
+      DELETE FROM sys_user_role WHERE user=#{userId,jdbcType=VARCHAR} AND role=#{roleId,jdbcType=VARCHAR}
+    </foreach>
+
+  </delete>
+  <select id="findRoles" parameterType="java.lang.String">
+    SELECT role FROM sys_user_role sur JOIN  sys_user su on sur.user=su.id and su.user_name=#{username,jdbcType=VARCHAR}
+  </select>
+
 </mapper>

@@ -17,6 +17,8 @@ public class SysUser {
 
     private Byte status;
 
+
+
     public String getId() {
         return id;
     }

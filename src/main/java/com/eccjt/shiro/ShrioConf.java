@@ -1,7 +1,11 @@
-package com.eccjt.bidservice.conf.shiro;
+package com.eccjt.shiro;
 
 
 import com.eccjt.bidservice.sysuser.dao.SysUserMapper;
+import com.eccjt.shiro.cas.CasFilter;
+import com.eccjt.shiro.cas.CasRealm;
+import com.eccjt.shiro.cas.CasSubjectFactory;
+import com.eccjt.shiro.general.GeneralRealm;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -17,6 +21,7 @@ import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.DelegatingFilterProxy;
+import sun.security.krb5.Realm;
 
 import javax.servlet.Filter;
 import java.util.HashMap;
@@ -28,6 +33,8 @@ import java.util.Map;
 public class ShrioConf {
     private static final Logger logger = LoggerFactory.getLogger(ShrioConf.class);
 
+    //普通登陆地址
+    public static final String generalloginUrl="/login";
     // cas server地址
     public static final String casServerUrlPrefix = "http://58.216.221.107:20026/cas";
     // Cas登录页面地址
@@ -51,7 +58,7 @@ public class ShrioConf {
     @Bean
     public EhCacheManager getEhCacheManager() {
         EhCacheManager em = new EhCacheManager();
-        em.setCacheManagerConfigFile("classpath:ehcache-shiro.xml");
+        em.setCacheManagerConfigFile("classpath:ehcache.xml");
         return em;
     }
 
@@ -59,9 +66,14 @@ public class ShrioConf {
     public CasRealm myShiroCasRealm(EhCacheManager cacheManager) {
         CasRealm realm = new CasRealm();
         realm.setCacheManager(cacheManager);
-        //realm.setCasServerUrlPrefix(ShiroCasConfiguration.casServerUrlPrefix);
-        // 客户端回调地址
-        //realm.setCasService(ShiroCasConfiguration.shiroServerUrlPrefix + ShiroCasConfiguration.casFilterUrlPattern);
+        return realm;
+    }
+
+    @Bean(name="myGeneralRealm")
+    public GeneralRealm myGeneralRealm(EhCacheManager cacheManager){
+        GeneralRealm realm=new GeneralRealm();
+        realm.setCacheManager(cacheManager);
+
         return realm;
     }
 
@@ -99,9 +111,6 @@ public class ShrioConf {
     /**
      * 注册DelegatingFilterProxy（Shiro）
      *
-     * @return
-     * @author SHANHY
-     * @create  2016年1月13日
      */
     @Bean
     public FilterRegistrationBean delegatingFilterProxy() {
@@ -149,9 +158,6 @@ public class ShrioConf {
     /**
      * CAS过滤器
      *
-     * @return
-     * @author SHANHY
-     * @create  2016年1月17日
      */
     @Bean(name = "casFilter")
     public CasFilter getCasFilter() {
@@ -171,9 +177,6 @@ public class ShrioConf {
      * @param securityManager
      * @param casFilter
      * @param sysUserMapper
-     * @return
-     * @author SHANHY
-     * @create  2016年1月14日
      */
     @Bean(name = "shiroFilter")
     public ShiroFilterFactoryBean getShiroFilterFactoryBean(DefaultWebSecurityManager securityManager, CasFilter casFilter, SysUserMapper sysUserMapper) {
@@ -181,6 +184,7 @@ public class ShrioConf {
         // 必须设置 SecurityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
+        shiroFilterFactoryBean.setLoginUrl(generalloginUrl);
         shiroFilterFactoryBean.setLoginUrl(loginUrl);
         // 登录成功后要跳转的连接
         shiroFilterFactoryBean.setSuccessUrl(loginSuccessUrl);
@@ -198,8 +202,6 @@ public class ShrioConf {
     /**
      * 加载shiroFilter权限控制规则（从数据库读取然后配置）,角色/权限信息由MyShiroCasRealm对象提供doGetAuthorizationInfo实现获取来的
      *
-     * @author SHANHY
-     * @create  2016年1月14日
      */
     private void loadShiroFilterChain(ShiroFilterFactoryBean shiroFilterFactoryBean, SysUserMapper sysUserMapper){
         /////////////////////// 下面这些规则配置最好配置到配置文件中 ///////////////////////

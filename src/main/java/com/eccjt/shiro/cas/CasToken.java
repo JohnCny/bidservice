@@ -1,4 +1,4 @@
-package com.eccjt.bidservice.conf.shiro;
+package com.eccjt.shiro.cas;
 
 import org.apache.shiro.authc.RememberMeAuthenticationToken;
 
