@@ -35,59 +35,62 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--&lt;!&ndash;生成对应表及类名&ndash;&gt;-->
-        <table schema="bid" tableName="bid_apply" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true" 
-               enableUpdateByPrimaryKey="true">
-            <generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>
-        </table>
-        <table schema="bid" tableName="bid_history" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"
-               enableUpdateByPrimaryKey="true">
-            <generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>
-        </table>
+        <!--<table schema="bid" tableName="bid_apply" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true" -->
+               <!--enableUpdateByPrimaryKey="true">-->
+            <!--<generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>-->
+        <!--</table>-->
+        <!--<table schema="bid" tableName="bid_history" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"-->
+               <!--enableUpdateByPrimaryKey="true">-->
+            <!--<generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>-->
+        <!--</table>-->
 
-        <table schema="bid" tableName="bid_ongoing_notice" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"
-               enableUpdateByPrimaryKey="true">
-            <generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>
+        <!--<table schema="bid" tableName="bid_ongoing_notice" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"-->
+               <!--enableUpdateByPrimaryKey="true">-->
+            <!--<generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>-->
+        <!--</table>-->
+        <!--<table schema="bid" tableName="bid_room" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"-->
+               <!--enableUpdateByPrimaryKey="true">-->
+            <!--<generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>-->
+        <!--</table>-->
+        <!--<table schema="bid" tableName="cas_user" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"-->
+               <!--enableUpdateByPrimaryKey="true">-->
+            <!--<generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>-->
+        <!--</table>-->
+        <!--<table schema="bid" tableName="project" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"-->
+               <!--enableUpdateByPrimaryKey="true">-->
+            <!--<generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>-->
+        <!--</table>-->
+        <!--<table schema="bid" tableName="subject" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"-->
+               <!--enableUpdateByPrimaryKey="true">-->
+            <!--<generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>-->
+        <!--</table>-->
+        <!--<table schema="bid" tableName="subject_operation_record" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"-->
+               <!--enableUpdateByPrimaryKey="true">-->
+            <!--<generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>-->
+        <!--</table>-->
+        <!--<table schema="bid" tableName="subject_priority" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"-->
+               <!--enableUpdateByPrimaryKey="true">-->
+            <!--<generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>-->
+        <!--</table>-->
+        <!--<table schema="bid" tableName="sys_org" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"-->
+               <!--enableUpdateByPrimaryKey="true">-->
+            <!--<generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>-->
+        <!--</table>-->
+        <!--<table schema="bid" tableName="sys_role" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"-->
+               <!--enableUpdateByPrimaryKey="true">-->
+            <!--<generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>-->
+        <!--</table>-->
+        <!--<table schema="bid" tableName="sys_user" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"-->
+               <!--enableUpdateByPrimaryKey="true">-->
+            <!--<generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>-->
+        <!--</table>-->
+        <!--<table schema="bid" tableName="sys_user_role" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"-->
+               <!--enableUpdateByPrimaryKey="true">-->
+            <!--<generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>-->
+        <!--</table>-->
+        <table schema="bid" tableName="sys_permission" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"
+        enableUpdateByPrimaryKey="true">
+        <generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>
         </table>
-        <table schema="bid" tableName="bid_room" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"
-               enableUpdateByPrimaryKey="true">
-            <generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>
-        </table>
-        <table schema="bid" tableName="cas_user" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"
-               enableUpdateByPrimaryKey="true">
-            <generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>
-        </table>
-        <table schema="bid" tableName="project" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"
-               enableUpdateByPrimaryKey="true">
-            <generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>
-        </table>
-        <table schema="bid" tableName="subject" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"
-               enableUpdateByPrimaryKey="true">
-            <generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>
-        </table>
-        <table schema="bid" tableName="subject_operation_record" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"
-               enableUpdateByPrimaryKey="true">
-            <generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>
-        </table>
-        <table schema="bid" tableName="subject_priority" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"
-               enableUpdateByPrimaryKey="true">
-            <generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>
-        </table>
-        <table schema="bid" tableName="sys_org" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"
-               enableUpdateByPrimaryKey="true">
-            <generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>
-        </table>
-        <table schema="bid" tableName="sys_role" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"
-               enableUpdateByPrimaryKey="true">
-            <generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>
-        </table>
-        <table schema="bid" tableName="sys_user" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"
-               enableUpdateByPrimaryKey="true">
-            <generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>
-        </table>
-        <table schema="bid" tableName="sys_user_role" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"
-               enableUpdateByPrimaryKey="true">
-            <generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>
-        </table>
-
     </context>
 </generatorConfiguration>

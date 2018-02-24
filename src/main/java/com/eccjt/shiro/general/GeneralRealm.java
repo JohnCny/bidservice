@@ -1,5 +1,6 @@
 package com.eccjt.shiro.general;
 
+import com.eccjt.bidservice.syspermission.model.SysPermission;
 import com.eccjt.bidservice.sysrole.model.SysRole;
 import com.eccjt.bidservice.sysuser.model.SysUser;
 import com.eccjt.bidservice.sysuser.service.SysUserService;
@@ -55,7 +56,7 @@ public class GeneralRealm extends AuthorizingRealm{
 
         for(SysRole role:sysUserService.getRoleList(sysUser.getId())){
             authorizationInfo.addRole(role.getRoleName());
-            //获取权限，暂不到这个粒度
+
 //            for(SysPermission p:role.getPermissions()){
 //                authorizationInfo.addStringPermission(p.getPermission());
 //            }

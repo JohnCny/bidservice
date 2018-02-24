@@ -1,5 +1,7 @@
 package com.eccjt.bidservice.sysrole.model;
 
+import com.eccjt.bidservice.syspermission.model.SysPermission;
+
 public class SysRole {
     private String id;
 
@@ -30,4 +32,5 @@ public class SysRole {
     public void setRoleLevel(Byte roleLevel) {
         this.roleLevel = roleLevel;
     }
+
 }
