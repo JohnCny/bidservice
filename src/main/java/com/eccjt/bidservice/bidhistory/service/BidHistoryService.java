@@ -1,5 +1,7 @@
 package com.eccjt.bidservice.bidhistory.service;
 
+import com.eccjt.bidservice.bidhistory.model.BidHistory;
+
 public interface BidHistoryService {
 
     /**
@@ -9,7 +11,7 @@ public interface BidHistoryService {
      * @param subjectId
      * @return
      */
-    Integer newBid(Long price,String subjectId);
+    Integer createBidHistory(BidHistory bidHistory);
 
 
 }

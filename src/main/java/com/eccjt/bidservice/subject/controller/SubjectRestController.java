@@ -1,6 +1,6 @@
 package com.eccjt.bidservice.subject.controller;
 
-import com.eccjt.bidservice.core.errorhandle.BidErrorException;
+
 import com.eccjt.bidservice.subject.model.Subject;
 import com.eccjt.bidservice.subject.service.SubjectService;
 import com.eccjt.bidservice.tools.ReturnMessage;
