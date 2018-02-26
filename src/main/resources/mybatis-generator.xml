@@ -88,9 +88,13 @@
                <!--enableUpdateByPrimaryKey="true">-->
             <!--<generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>-->
         <!--</table>-->
-        <table schema="bid" tableName="sys_permission" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"
-        enableUpdateByPrimaryKey="true">
-        <generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>
+        <!--<table schema="bid" tableName="sys_permission" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"-->
+        <!--enableUpdateByPrimaryKey="true">-->
+        <!--<generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>-->
+        <!--</table>-->
+        <table schema="bid" tableName="best_price_record" enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true"
+               enableUpdateByPrimaryKey="true">
+            <generatedKey column="id" sqlStatement="select replace(uuid(),'-','')"></generatedKey>
         </table>
     </context>
 </generatorConfiguration>
