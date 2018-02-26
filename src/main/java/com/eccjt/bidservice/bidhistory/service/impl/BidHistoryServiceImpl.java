@@ -35,6 +35,9 @@ public class BidHistoryServiceImpl implements BidHistoryService{
         //todo:获取用户ID
         String userId="todo_userid";
 
+        //最优价格更新结果
+        Integer bprResult=0;
+
         //缓存KEY及操作初始化
         String redisKey="bestPrice_"+bidHistory.getSubject();
         ValueOperations<String,BidHistory> operations=redisTemplate.opsForValue();
@@ -52,22 +55,27 @@ public class BidHistoryServiceImpl implements BidHistoryService{
         if(bestPriceRecords.size()==0){
             //版本号置1
             bestPriceRecord.setVersion(1);
-            bestPriceRecordService.createBestPriceRecord(bestPriceRecord,1);
+            bprResult=bestPriceRecordService.createBestPriceRecord(bestPriceRecord);
         }
         else {
-            BestPriceRecord oldBestPrice = bestPriceRecords.get(0);
+            BestPriceRecord currentBestPrice = bestPriceRecords.get(0);
 
             //获取竞价规则，根据竞价规则比较当前报价与最优价
 
             //是最优价格，更新最优报价
             //更新版本号
-            Integer newVersion=oldBestPrice.getVersion()+1;
-            bestPriceRecord.setVersion(newVersion);
-            bestPriceRecordService.updateBestPriceRecord(bestPriceRecord,newVersion);
+            bestPriceRecord.setVersion(currentBestPrice.getVersion()+1);
+            bprResult=bestPriceRecordService.updateBestPriceRecord(bestPriceRecord);
         }
 
+        if(bprResult==1){
+            //结果=1,最优价更新成功,更新缓存
+            operations.set(redisKey,bidHistory);
+        }
 
         //更新竞价历史记录
         return bidHistoryMapper.insert(bidHistory);
     }
+
+
 }

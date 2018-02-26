@@ -19,4 +19,6 @@ public interface BestPriceRecordMapper {
     int updateByExampleSelective(@Param("record") BestPriceRecord record, @Param("example") BestPriceRecordExample example);
 
     int updateByExample(@Param("record") BestPriceRecord record, @Param("example") BestPriceRecordExample example);
+
+
 }
