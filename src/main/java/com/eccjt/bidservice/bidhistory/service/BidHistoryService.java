@@ -6,12 +6,11 @@ public interface BidHistoryService {
 
     /**
      * 新报价
-     * @param userId
-     * @param price
-     * @param subjectId
+     * @param bidHistory
      * @return
      */
     Integer createBidHistory(BidHistory bidHistory);
+
 
 
 }

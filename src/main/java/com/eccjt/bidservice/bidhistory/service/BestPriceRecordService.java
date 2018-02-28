@@ -2,6 +2,7 @@ package com.eccjt.bidservice.bidhistory.service;
 
 import com.eccjt.bidservice.bidhistory.model.BestPriceRecord;
 
+
 import java.util.List;
 
 public interface BestPriceRecordService {

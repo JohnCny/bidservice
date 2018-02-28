@@ -10,15 +10,21 @@ public interface BestPriceRecordMapper {
 
     int deleteByExample(BestPriceRecordExample example);
 
+    int deleteByPrimaryKey(String id);
+
     int insert(BestPriceRecord record);
 
     int insertSelective(BestPriceRecord record);
 
     List<BestPriceRecord> selectByExample(BestPriceRecordExample example);
 
+    BestPriceRecord selectByPrimaryKey(String id);
+
     int updateByExampleSelective(@Param("record") BestPriceRecord record, @Param("example") BestPriceRecordExample example);
 
     int updateByExample(@Param("record") BestPriceRecord record, @Param("example") BestPriceRecordExample example);
 
+    int updateByPrimaryKeySelective(BestPriceRecord record);
 
+    int updateByPrimaryKey(BestPriceRecord record);
 }

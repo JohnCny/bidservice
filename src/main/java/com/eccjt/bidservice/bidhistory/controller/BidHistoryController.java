@@ -1,6 +1,7 @@
 package com.eccjt.bidservice.bidhistory.controller;
 
 import com.eccjt.bidservice.bidhistory.model.BidHistory;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

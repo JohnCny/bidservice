@@ -7,18 +7,17 @@ import com.eccjt.bidservice.bidhistory.service.BestPriceRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by johhny on 18/2/26.
  */
+@Service
 public class BestPriceRecordServiceImpl implements BestPriceRecordService {
     @Autowired
     private BestPriceRecordMapper bestPriceRecordMapper;
-
-    @Autowired
-    private RedisTemplate redisTemplate;
 
     @Override
     public Integer createBestPriceRecord(BestPriceRecord bestPriceRecord) {
@@ -50,8 +49,7 @@ public class BestPriceRecordServiceImpl implements BestPriceRecordService {
 
         if (bestPriceRecord.getVersion()>=(currentBestPrice.getVersion()+1)){
             //版本号大于等于当前的版本+1,版本正确,可以更新,版本号小于当前版本,不做任何操作,返回0
-            // TODO: 18/2/26 dao新增根据主键新增记录
-            return 1;
+            return bestPriceRecordMapper.updateByPrimaryKey(bestPriceRecord);
         }
         else{
             return 0;

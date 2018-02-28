@@ -1,6 +1,7 @@
 package com.eccjt.bidservice.subject.service;
 
 
+import com.eccjt.bidservice.bidhistory.model.BidHistory;
 import com.eccjt.bidservice.subject.model.Subject;
 
 
@@ -61,4 +62,6 @@ public interface SubjectService {
      * @return
      */
     List<Subject> getSubjects(Byte status);
+
+    Boolean checkBestPrice(BidHistory newBidHistory,BidHistory currentBidHistory);
 }
